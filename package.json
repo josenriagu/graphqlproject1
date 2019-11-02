@@ -21,6 +21,7 @@
     "nodemon": "^1.19.3"
   },
   "devDependencies": {
+    "crossenv": "0.0.2-security",
     "dotenv": "^8.1.0"
   }
 }
