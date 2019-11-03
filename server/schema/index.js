@@ -1,17 +1,27 @@
 const graphql = require('graphql');
-const books = require('../dummydata');
+const _ = require("lodash");
+const data = require('../dummydata');
 
 // step 1: grab the required properties from the graphql package
-const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLSchema } = graphql;
 
 
 // step 2: define the object types
 const BookType = new GraphQLObjectType({
    name: 'Book',
    fields: () => ({
-      id: { type: GraphQLString },
+      id: { type: GraphQLID },
       name: { type: GraphQLString },
       genre: { type: GraphQLString },
+   })
+})
+
+const AuthorType = new GraphQLObjectType({
+   name: 'Author',
+   fields: () => ({
+      id: { type: GraphQLID },
+      name: { type: GraphQLString },
+      age: { type: GraphQLID },
    })
 })
 
@@ -21,14 +31,24 @@ const RootQuery = new GraphQLObjectType({
    fields: {
       book: {
          type: BookType,
-         args: { id: { type: GraphQLString } },
+         args: { id: { type: GraphQLID } },
          resolve(parent, args) {
-            // code to get data from db / other source
+            return _.find(data.books, { id: args.id })
+         }
+      },
+      author: {
+         type: AuthorType,
+         args: { id: { type: GraphQLID } },
+         resolve(parent, args) {
+            return _.find(data.authors, { id: args.id })
          }
       }
+
    }
 })
 
 module.exports = new GraphQLSchema({
    query: RootQuery
 })
+
+// GraphQLString lets you pass only strings as parameters unlike GraphQLID which is a little more flexible and works even if the parameter is integer or string
