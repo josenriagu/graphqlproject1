@@ -3,7 +3,7 @@ const _ = require("lodash");
 const data = require('../dummydata');
 
 // step 1: grab the required properties from the graphql package
-const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLSchema } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt, GraphQLSchema } = graphql;
 
 
 // step 2: define the object types
@@ -13,6 +13,13 @@ const BookType = new GraphQLObjectType({
       id: { type: GraphQLID },
       name: { type: GraphQLString },
       genre: { type: GraphQLString },
+      author: {
+         type: AuthorType,
+         resolve(parent, args) {
+            console.log(parent);
+            return _.find(data.authors, {id: parent.authorId})
+         }
+      }
    })
 })
 
@@ -21,7 +28,7 @@ const AuthorType = new GraphQLObjectType({
    fields: () => ({
       id: { type: GraphQLID },
       name: { type: GraphQLString },
-      age: { type: GraphQLID },
+      age: { type: GraphQLInt },
    })
 })
 
