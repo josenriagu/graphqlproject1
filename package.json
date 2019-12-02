@@ -1,0 +1,28 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "graphql server for the frontend project",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "graphql",
+    "server",
+    "express"
+  ],
+  "author": "Josemaria Nriagu",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^14.5.8",
+    "lodash": "^4.17.15",
+    "nodemon": "^1.19.3"
+  },
+  "devDependencies": {
+    "crossenv": "0.0.2-security",
+    "dotenv": "^8.1.0"
+  }
+}
