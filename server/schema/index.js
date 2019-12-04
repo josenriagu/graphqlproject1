@@ -4,7 +4,7 @@ const Book = require('../models/book');
 const Author = require('../models/author');
 
 // step 1: grab the required properties from the graphql package
-const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt, GraphQLSchema, GraphQLList } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt, GraphQLSchema, GraphQLList, GraphQLNonNull } = graphql;
 
 
 // step 2: define the object types
@@ -82,8 +82,8 @@ const Mutation = new GraphQLObjectType({
       addAuthor: {
          type: AuthorType,
          args: {
-            name: { type: GraphQLString },
-            age: { type: GraphQLInt }
+            name: { type: new GraphQLNonNull(GraphQLString) },
+            age: { type: new GraphQLNonNull(GraphQLInt) }
          },
          resolve(parent, args) {
             let author = new Author({
@@ -96,9 +96,9 @@ const Mutation = new GraphQLObjectType({
       addBook: {
          type: BookType,
          args: {
-            name: { type: GraphQLString },
-            genre: { type: GraphQLString },
-            authorId: { type: GraphQLID }
+            name: { type: new GraphQLNonNull(GraphQLString) },
+            genre: { type: new GraphQLNonNull(GraphQLString) },
+            authorId: { type: new GraphQLNonNull(GraphQLID) }
          },
          resolve(parent, args) {
             let book = new Book({
