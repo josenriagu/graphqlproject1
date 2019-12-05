@@ -30,7 +30,7 @@ module.exports = {
          name: 'The Color of Magic',
          genre: 'Fantasy',
          id: '5',
-         authorId: '2'
+         authorId: '3'
       },
       {
          name: 'The Light Fantastic',
